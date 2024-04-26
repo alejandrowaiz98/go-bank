@@ -1,7 +1,7 @@
 package main
 
 import (
-	"os"
+	"log"
 
 	"github.com/joho/godotenv"
 )
@@ -17,8 +17,16 @@ func init() {
 
 func main() {
 
-	server := NewAPIServer(os.Getenv("server_port"))
+	postgreStore, err := NewPostgreStore()
 
-	server.Run()
+	if err != nil {
+		panic(err)
+	}
+
+	log.Printf("%+v\n", postgreStore)
+
+	//server := NewAPIServer(os.Getenv("server_port"), postgreStore)
+
+	//server.Run()
 
 }
